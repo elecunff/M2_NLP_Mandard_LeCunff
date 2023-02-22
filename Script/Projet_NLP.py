@@ -15,7 +15,9 @@ texte = []
 theme = []
 
 for obj in liste :
-    f = open(f"C:/Users/Mael/Documents/Fac/M2/NLP/M2_NLP_Mandard_LeCunff/Data/{obj}.json", encoding= 'UTF-8')
+    #f = open(f"C:/Users/Mael/Documents/Fac/M2/NLP/M2_NLP_Mandard_LeCunff/Data/{obj}.json", encoding= 'UTF-8')
+    f = open(f"C:/Users/ewen/Documents/M2/NLP/M2_NLP_Mandard_LeCunff/Data/{obj}.json", encoding= 'UTF-8')
+    
     data = json.load(f)
     
     them = data['query']['theme']
@@ -97,11 +99,9 @@ def lemmatize(allowed_postags=["NOUN", "ADJ", "VERB", "ADV"]):
 fin_data['texte'] = lemmatize()
 
 
-fin_data['texte'][0]
+print(fin_data['texte'][0])
 
-fin_data['texte'][1].split()[:54]
-
-
+#fin_data['texte'][1].split()[:54]
 
 
 
@@ -146,6 +146,8 @@ fin_data['texte'][1].split()[:54]
 
 
 
+
+"""
 from  spacy.lang.fr.stop_words import STOP_WORDS
 stopwords = list(STOP_WORDS)
 print(stopwords)
@@ -193,3 +195,4 @@ documents_transformes_tableau = documents_transformes.toarray()
 len(documents_transformes_tableau)
 
 vectoriseur.get_feature_names_out()
+"""
