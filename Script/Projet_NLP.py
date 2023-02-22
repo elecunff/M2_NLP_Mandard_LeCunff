@@ -6,6 +6,10 @@ from unidecode import unidecode
 import nltk
 from nltk.corpus import stopwords
 import spacy
+from sklearn.feature_extraction.text import CountVectorizer
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
 
 liste = ['formation0', 'formation1', 'formation2', 'formation3', 'formation4',
          'rupture0', 'rupture1', 'rupture2', 'rupture3', 'rupture4']
@@ -107,111 +111,19 @@ print(fin_data['texte'][35])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-from  spacy.lang.fr.stop_words import STOP_WORDS
-stopwords = list(STOP_WORDS)
-print(stopwords)
-
-
-from nltk.stem import WordNetLemmatizer
-  
-import nltk
-nltk.download('wordnet')
-lemmatizer = WordNetLemmatizer()
-
-print("rocks :", lemmatizer.lemmatize("etait"))
-print("corpora :", lemmatizer.lemmatize("corpora"))
-
-
-# Import libraries for text manipulation
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.model_selection import train_test_split
-
-#vec = CountVectorizer(decode_error='ignore', stop_words='english', max_features=500, lowercase=True, 
-#    min_df=20, encoding='utf-8')
-vec = TfidfVectorizer(decode_error='ignore', stop_words='english', max_features=500, lowercase=True, 
-                      min_df=20, encoding='utf-8', strip_accents='unicode')
-# max_features : top max_features ordered by term frequency across the corpus
+#matrice documents-termes
+vec = CountVectorizer()
 X = vec.fit_transform(fin_data['texte'])
 
-vec.get_feature_names_out()
-
-# X sparse doit être transformé en matrice non sparse pour les traitements ultérieurs
-df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names_out())
-print(df.head(4))
-print(df.shape)
+df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names())
+df.head()
 
 
-# importer le vectoriseur TfidfVectorizer de Scikit-Learn.  
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-vectoriseur = TfidfVectorizer(max_df=.65, min_df=1, stop_words=None, use_idf=True, norm=None)
-documents_transformes = vectoriseur.fit_transform(fin_data['texte'])
-
-
-documents_transformes_tableau = documents_transformes.toarray()
-# la prochaine ligne de code vérifie que le tableau numpy contient le même nombre
-# de documents que notre liste de fichiers
-len(documents_transformes_tableau)
-
-vectoriseur.get_feature_names_out()
-
-"""
-
-
-from wordcloud import WordCloud
-
+#nuage de mots
 wordcloud = WordCloud(background_color="white")
-
 text = " ".join(fin_data['texte'].tolist()) 
-
 wordcloud.generate(text)
-
-import matplotlib.pyplot as plt
-
 plt.imshow(wordcloud, interpolation='bilinear')
-
 plt.axis('off')
-
 plt.show()
 
